@@ -6,7 +6,7 @@ const inquirer = require("inquirer");
 const fs = require("fs");
 const path = require("path");
 
-//collect all team objs
+//collect all team objects
 const team = [];
 const ManagerQuestions = [
   {
@@ -26,8 +26,8 @@ const ManagerQuestions = [
   },
   {
     type: "input",
-    message: "What is the Manager's officNumber",
-    name: "officNumber",
+    message: "What is the Manager's officeNumber",
+    name: "officeNumber",
   },
 ];
 const InternQuestions = [
@@ -78,7 +78,7 @@ const EngineerQuestions = [
 const createManager = () => {
   //ask the questions_
   inquirer.prompt(ManagerQuestions).then((a) => {
-    //based o nthe answers make class obj
+    //based on the answers make class obj
     const objManager = new Manager(a.name, a.id, a.email, a.officeNumber);
     //push the obj to array of
     team.push(objManager);
@@ -90,7 +90,7 @@ const createManager = () => {
 const createIntern = () => {
   //ask the questions_
   inquirer.prompt(InternQuestions).then((a) => {
-    //based o nthe answers make class obj
+    //based on the answers make class obj
     const objIntern = new Intern(a.name, a.id, a.email, a.school);
     //push the obj to array of
     team.push(objIntern);
@@ -102,7 +102,7 @@ const createIntern = () => {
 const createEngineer = () => {
   //ask the questions_
   inquirer.prompt(EngineerQuestions).then((a) => {
-    //based o nthe answers make class obj
+    //based on the answers make class obj
     const objEngineer = new Engineer(a.name, a.id, a.email, a.github);
     //push the obj to array of
     team.push(objEngineer);
@@ -133,66 +133,83 @@ const startQuestions = () => {
           createManager();
           break;
         default:
-            buildTeamHTML()
+          buildTeamHTML();
           break;
       }
     });
 };
 
 const buildTeamHTML = () => {
-    fs.writeFileSync(path.join(__dirname, '/output/team.html'),convertTeamsArrayToHTML(team));
-}
+  fs.writeFileSync(
+    path.join(__dirname, "/output/team.html"),
+    convertTeamsArrayToHTML(team)
+  );
+};
 
 const convertTeamsArrayToHTML = (team) => {
-    const arrayTeamCards = team.map((m) => {
-        switch (m.getRole()) {
-            case "Manager":
-                return `
-                    <div>
-                        <p>Name: ${m.getName()}</p>
-                        <p>Id: ${m.getId()}</p>
-                        <p>Email: ${m.getEmail()}</p>
-                        <p>OfficeNumber: ${m.getOfficeNumber()}</p>
-                    </div>
-                `;
-                case "Intern":
-                    return `
-                        <div>
-                            <p>Name: ${m.getName()}</p>
-                            <p>Id: ${m.getId()}</p>
-                            <p>Email: ${m.getEmail()}</p>
-                            <p>School: ${m.getSchool()}</p>
-                        </div>
-                    `;
-                    case "Engineer":
-                        return `
-                            <div>
-                                <p>Name: ${m.getName()}</p>
-                                <p>Id: ${m.getId()}</p>
-                                <p>Email: ${m.getEmail()}</p>
-                                <p>Github: ${m.getGithub()}</p>
-                            </div>
-                        `;
-            default:
-                break;
-        }
-    });
+  const arrayTeamCards = team.map((m) => {
+    switch (m.getRole()) {
+      case "Manager":
+        return `
+        <div class="employee-card">
+          <div class="manager-card">
+              <p class="card-title"> Manager </p>
+              <p>Name: ${m.getName()}</p>
+              <p>Id: ${m.getId()}</p>
+              <p>Email: ${m.getEmail()}</p>
+              <p class="p-final">OfficeNumber: ${m.getOfficeNumber()}</p>
+          </div>
+        </div> 
+        `;
 
+      case "Intern":
+        return `
+          <div class="employee-card">
+            <div class="intern-card">
+            <p class="card-title"> Intern </p>
+              <p>Name: ${m.getName()}</p>
+              <p>Id: ${m.getId()}</p>
+              <p>Email: ${m.getEmail()}</p>
+              <p class="p-final">School: ${m.getSchool()}</p>
+            </div>
+          </div>
+        `;
+      case "Engineer":
+        return `
+          <div class="employee-card">
+            <div class="engineer-card">
+            <p class="card-title"> Engineer </p>
+              <p>Name: ${m.getName()}</p>
+              <p>Id: ${m.getId()}</p>
+              <p>Email: ${m.getEmail()}</p>
+              <p class="p-final">Github: ${m.getGithub()}</p>
+          </div>
+        </div>
+        `;
+      default:
+        break;
+    }
+  });
 
-    return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC">
+        <link rel="stylesheet" href="../styles.css">
         <title>Document</title>
     </head>
     <body>
-        ${arrayTeamCards.join("")}
+      <h1 class="header-title">Welcome to the Team!</h1>
+      <br>
+      <div class="team-cards row">
+      ${arrayTeamCards.join("")}
+    
+      </div>
     </body>
     </html>`;
 };
-
-
 
 startQuestions();

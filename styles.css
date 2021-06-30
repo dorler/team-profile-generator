@@ -1,0 +1,52 @@
+.header-title {
+  font-weight: bold;
+  text-align: center;
+}
+
+.team-cards {
+  width: 100%;
+}
+
+.team-cards p {
+  padding: 0 16px;
+}
+
+/* Employee Card Styles */
+.employee-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  padding: 0;
+}
+
+.p-final {
+  margin: 0;
+}
+
+.card-title {
+  color: rgb(77, 75, 75);
+  font-size: 18px;
+  font-style: bold;
+  border-bottom: 1px solid #eee;
+  background-color: rgba(250, 250, 250, 0.781);
+  text-align: center;
+}
+
+.engineer-card {
+  background-color: #0a1045;
+  color: #fff;
+  text-align: left;
+}
+
+.manager-card {
+  background-color: #00c2d1;
+  color: #fff;
+  text-align: left;
+}
+
+.intern-card {
+  background-color: #ed33b9;
+  color: #fff;
+  text-align: left;
+}
