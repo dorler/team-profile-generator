@@ -5,6 +5,7 @@
 
 .team-cards {
   width: 100%;
+  display: row;
 }
 
 .team-cards p {
